@@ -165,7 +165,7 @@ export default class ImageSlider extends Component {
             }
         })}
     </ScrollView>
-        <View style={styles.buttons}>
+        <View style={[styles.buttons, { ...this.props.buttonPosition }]}>
         {this.props.images.map((image, index) => {
             return (<TouchableHighlight
             key={index}
