@@ -119,11 +119,11 @@ export default class ImageSlider extends Component {
         });
 
         this._interval = setInterval(() => {
-            const newWidth = Dimensions.get('window').width;
-            if (newWidth !== this.state.width) {
-                this.setState({width: newWidth});
-            }
-        }, 16);
+                const newWidth = Dimensions.get('window').width;
+        if (newWidth !== this.state.width) {
+            this.setState({width: newWidth});
+        }
+    }, 16);
     }
 
     componentWillUnmount() {
@@ -136,48 +136,48 @@ export default class ImageSlider extends Component {
         const position = this._getPosition();
         return (<View>
             <ScrollView
-                ref={ref => this._onRef(ref)}
-                decelerationRate={0.99}
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-                {...this._panResponder.panHandlers}
-                style={[styles.container, this.props.style, {height: height}]}>
-                {this.props.images.map((image, index) => {
-                    const imageObject = typeof image === 'string' ? {uri: image} : image;
-                    const imageComponent = <Image
-                        key={index}
-                        source={imageObject}
-                        style={{height, width}}
-                    />;
-                    if (this.props.onPress) {
-                        return (
-                            <TouchableOpacity
-                                key={index}
-                                style={{height, width}}
-                                onPress={() => this.props.onPress({image, index})}
-                                delayPressIn={200}
-                            >
-                                {imageComponent}
-                            </TouchableOpacity>
-                        );
-                    } else {
-                        return imageComponent;
-                    }
-                })}
-            </ScrollView>
-            <View style={styles.buttons}>
-                {this.props.images.map((image, index) => {
-                    return (<TouchableHighlight
-                        key={index}
-                        underlayColor="#ccc"
-                        onPress={() => {
-                            return this._move(index);
-                        }}
-                        style={[styles.button, position === index && styles.buttonSelected]}>
-                        <View></View>
-                    </TouchableHighlight>);
-                })}
-            </View>
+        ref={ref => this._onRef(ref)}
+        decelerationRate={0.99}
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+        {...this._panResponder.panHandlers}
+        style={[styles.container, this.props.style, {height: height}]}>
+        {this.props.images.map((image, index) => {
+            const imageObject = typeof image === 'string' ? {uri: image} : image;
+            const imageComponent = <Image
+            key={index}
+            source={imageObject}
+            style={{height, width}}
+        />;
+            if (this.props.onPress) {
+                return (
+                    <TouchableOpacity
+                key={index}
+                style={{height, width}}
+                onPress={() => this.props.onPress({image, index})}
+                delayPressIn={200}
+                    >
+                    {imageComponent}
+                    </TouchableOpacity>
+            );
+            } else {
+                return imageComponent;
+            }
+        })}
+    </ScrollView>
+        <View style={styles.buttons}>
+        {this.props.images.map((image, index) => {
+            return (<TouchableHighlight
+            key={index}
+            underlayColor="#ccc"
+            onPress={() => {
+            return this._move(index);
+        }}
+            style={[styles.button, position === index && styles.buttonSelected, this.props.buttonStyle]}>
+        <View></View>
+        </TouchableHighlight>);
+        })}
+    </View>
         </View>);
     }
 }
